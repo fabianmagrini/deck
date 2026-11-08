@@ -1,0 +1,18 @@
+[package]
+name = "workbench-app"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "deck"
+path = "src/main.rs"
+
+[dependencies]
+workbench-core = { path = "../workbench-core" }
+workbench-agents = { path = "../workbench-agents" }
+gpui = "0.2.2"
+unicode-segmentation = "1"
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+uuid = { workspace = true }
+time = { workspace = true }

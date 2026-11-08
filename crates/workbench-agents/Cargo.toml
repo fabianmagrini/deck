@@ -1,0 +1,10 @@
+[package]
+name = "workbench-agents"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+workbench-core = { path = "../workbench-core" }
+serde = { workspace = true }
+uuid = { workspace = true }
+time = { workspace = true }
