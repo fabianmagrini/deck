@@ -35,6 +35,8 @@ Three-panel layout (left sidebar · conversation · inspector) with Tokyo Night 
 - `workbench-app` composes everything and owns GPUI state.
 - Domain events are serialisable without importing GPUI types.
 
+See [docs/architecture.md](docs/architecture.md) for a full explanation of each layer and the rationale behind these boundaries.
+
 ## Prerequisites
 
 | Requirement | Version |
@@ -146,13 +148,24 @@ crates/
 | 4 — Git & persistence | 🔲 | Git diffs, SQLite storage, session restore |
 | 5 — Hardening | 🔲 | Performance benchmarks, accessibility, security review |
 
-## Design decisions
+## Documentation
 
-**GPUI over Tauri/SwiftUI** — this project is explicitly an experiment to evaluate GPUI's suitability for AI-native developer tooling. The goal is to understand its strengths and limitations before committing to a larger implementation.
+| Document | Purpose |
+|----------|---------|
+| [AGENTS.md](AGENTS.md) | **Start here if you are an AI coding agent.** Build commands, hard rules, GPUI gotchas, milestone boundaries. |
+| [docs/architecture.md](docs/architecture.md) | Layered design, dependency rules, event model, render patterns — the *why* behind the structure. |
+| [docs/decisions/](docs/decisions/) | Architecture Decision Records for key choices. |
+| [spec.md](spec.md) | Full product and engineering specification. |
+| Crate READMEs | Each crate has its own README covering its public API and scope. |
 
-**Synchronous `AgentAdapter` for MVP** — the trait is synchronous in Milestone 2 to keep the mock simple. Async adapters (required for the ACP integration in Milestone 3) will wrap the synchronous contract or replace it.
+### Key decisions
 
-**Tokyo Night theme** — matches the spec's dark-theme-first requirement and provides a visually coherent palette defined entirely in `workbench-app/src/theme.rs`.
+| ADR | Decision |
+|-----|----------|
+| [001](docs/decisions/001-gpui-over-alternatives.md) | GPUI over Tauri / SwiftUI / egui |
+| [002](docs/decisions/002-workbench-core-no-gpui.md) | `workbench-core` must never import GPUI |
+| [003](docs/decisions/003-sync-agent-adapter.md) | Synchronous `AgentAdapter` for Milestone 2 (revisit at M3) |
+| [004](docs/decisions/004-gpui-element-lifetime.md) | Clone data before building GPUI element trees |
 
 ## Licence
 
